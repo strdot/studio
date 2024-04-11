@@ -1,22 +1,11 @@
 import 'ideanuxt/dist/style.css'
-import ideanuxt, { IWorkbenchConstructionOptions } from 'ideanuxt'
+import ideanuxt from 'ideanuxt'
 
-import { emoji } from './extensions/emoji/emoji'
+function main() {
+  import('./extensions/github/github').then(({ github }) => ideanuxt.use(github))
+  import('./extensions/qrcode/qrcode').then(({ qrcode }) => ideanuxt.use(qrcode))
 
-(async function main() {
-  ideanuxt.use(emoji)
+  ideanuxt.create(document.getElementById('root')!)
+}
 
-  let owner: string = ''
-  let slug: string = ''
-  const matches = window.location.href.match(/([a-z0-9A-Z-_]+)\/([a-z0-9A-Z-_]+)\/edit/)
-  if (matches && matches[1] && matches[2]) {
-    owner = matches[1]
-    slug = matches[2]
-  }
-
-  const options: IWorkbenchConstructionOptions = {
-    resourceUri: owner && slug ? `/users/${owner}/${slug}` : 'memory://untitled'
-  }
-
-  ideanuxt.create(document.getElementById('root') || document.body, options)
-})()
+main()

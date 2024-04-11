@@ -9,8 +9,5 @@ export default defineConfig({
   plugins: [
     react(),
     splitVendorChunkPlugin(),
-  ],
-  optimizeDeps: {
-    include: ['ideanuxt']
-  }
+  ]
 })
